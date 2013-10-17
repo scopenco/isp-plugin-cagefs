@@ -2,6 +2,7 @@ isp-plugin-cagefs
 =================
 
 This is an alternative plugin for ISPmanager that allow to administrate CloudLinux CageFS.
+
 Icons are taken from vendor plugin.
 
 Difference from vendor plugin:
@@ -15,6 +16,6 @@ Dependancies:
     - python-psutl
 
 Installation:
-    1 copy files from etc/ to /usr/local/ispmgr/etc/
-    2 copy files from addon/ to /usr/local/ispmgr/addon/
-    3 killall -9 ispmgr
+    - copy files from etc/ to /usr/local/ispmgr/etc/
+    - copy files from addon/ to /usr/local/ispmgr/addon/
+    - killall -9 ispmgr
