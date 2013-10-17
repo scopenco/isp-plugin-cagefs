@@ -16,6 +16,6 @@ Dependancies:
 - python-psutl
 
 Installation:
-1. copy files from etc/ to /usr/local/ispmgr/etc/
-1. copy files from addon/ to /usr/local/ispmgr/addon/
-1. killall -9 ispmgr
+- copy files from etc/ to /usr/local/ispmgr/etc/
+- copy files from addon/ to /usr/local/ispmgr/addon/
+- killall -9 ispmgr
