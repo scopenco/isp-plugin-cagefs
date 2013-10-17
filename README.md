@@ -12,10 +12,10 @@ Difference from vendor plugin:
 - corrected work of checkbox (enable/disable CageFS) in user.edit form
 
 Dependancies:
-    - python >= 2.4
-    - python-psutl
+- python >= 2.4
+- python-psutl
 
 Installation:
-    - copy files from etc/ to /usr/local/ispmgr/etc/
-    - copy files from addon/ to /usr/local/ispmgr/addon/
-    - killall -9 ispmgr
+1. copy files from etc/ to /usr/local/ispmgr/etc/
+1. copy files from addon/ to /usr/local/ispmgr/addon/
+1. killall -9 ispmgr
