@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mgrdata>
+    <plugin>
+        <name lang="ru">Alternative ISP CageFS User Manager</name>
+        <name lang="en">Alternative ISP CageFS User Manager</name>
+        <description lang="ru">Alternative CloudLinux CageFS User Manager</description>
+        <description lang="en">Alternative CloudLinux CageFS User Manager</description>
+        <version>0.1</version>
+        <lang>python</lang>
+        <require>python-psutil</require>
+        <manager>CageFS</manager>
+        <author>Andrey Skopenko</author>
+        <contact>skype: scopenco; email:andrey@scopenco.net</contact>
+    </plugin>
+    
+    <handler name="CageFSBackup.py" type="cgi">
+      <event after="yes">backupplan</event>
+    </handler>
+
+</mgrdata>

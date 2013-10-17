@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mgrdata>
+    <plugin>
+        <name lang="ru">Alternative CageFS User Manager</name>
+        <name lang="en">Alternative CageFS User Manager</name>
+        <description lang="ru">Alternative CloudLinux CageFS User Manager</description>
+        <description lang="en">Alternative CloudLinux CageFS User Manager</description>
+        <version>0.1</version>
+        <lang>python</lang>
+        <require>python-psutil</require>
+        <manager>CageFS</manager>
+        <author>Andrey Skopenko</author>
+        <contact>skype: scopenco; email:andrey@scopenco.net</contact>
+    </plugin>
+
+    <handler name="CageFSUser.py" type="xml">
+      <event after="yes">user</event>
+    </handler>
+    
+    <handler name="CageFSUserEdit_b.py" type="cgi">
+      <event before="yes">user.edit</event>
+    </handler>
+
+    <handler name="CageFSUserEdit_a.py" type="cgi">
+      <event final="yes">user.edit</event>
+    </handler>
+
+    <metadata name="user">
+        <coldata>
+           <col name="cagefs_status" type="data"/>
+        </coldata>
+    </metadata>
+    
+    <metadata name="user.edit">
+        <form>
+            <page name="perm">
+               <field name="cagefs_mode">
+                    <input name="cagefs_mode" type="checkbox"/>
+                    <desc name="cagefs_mode_desc"/>
+               </field>
+            </page>
+        </form>
+    </metadata>
+
+    <lang name="en">
+        <messages name="user">
+            <msg name="cagefs_status">CageFS</msg>
+        </messages>
+        
+        <messages name="user.edit">
+            <msg name="cagefs_mode_desc">CageFS</msg>
+        </messages>
+    </lang>
+    
+    <lang name="ru">
+        <messages name="user">
+            <msg name="cagefs_status">CageFS</msg>
+        </messages>
+        <messages name="user.edit">
+            <msg name="cagefs_mode_desc">CageFS</msg>
+        </messages>
+    </lang>
+    
+</mgrdata>

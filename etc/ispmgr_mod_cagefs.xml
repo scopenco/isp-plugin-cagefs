@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <mgrdata>
+    <plugin>
+        <name lang="ru">Alternative CageFS Manager</name>
+        <name lang="en">Alternative CageFS Manager</name>
+        <description lang="ru">Alternative CloudLinux CageFS Manager</description>
+        <description lang="en">Alternative CloudLinux CageFS Manager</description>
+        <version>0.1</version>
+        <lang>python</lang>
+        <require>python-psutil</require>
+        <manager>CageFS</manager>
+        <author>Andrey Skopenko</author>
+        <contact>skype: scopenco; email:andrey@scopenco.net</contact>
+    </plugin>
+    
+    <handler name="CageFS.py" type="cgi">
+        <func minlevel="7">cagefs.main</func>
+        <func minlevel="7">cagefs.toggle</func>
+        <func minlevel="7">cagefs.status</func>
+        <func minlevel="7">cagefs.update_start</func>
+        <func minlevel="7">cagefs.update_progress</func>
+        <func minlevel="7">cagefs.update_done</func>
+        <func minlevel="7">cagefs.init_start</func>
+        <func minlevel="7">cagefs.init_progress</func>
+        <func minlevel="7">cagefs.init_done</func>
+        <func minlevel="7">cagefs.enable-all</func>
+        <func minlevel="7">cagefs.disable-all</func>
+    </handler>
+ 
+    <mainmenu level="7">
+        <node name="cagefs">
+            <node name="cagefs.main"/>
+        </node>
+    </mainmenu>
+ 
+    <metadata name="cagefs.main" type="list" key="message">
+        <toolbar>
+            <toolbtn func="cagefs.init_start" type="list" img="t-start" name="Init"/>
+            <toolsep />
+            <toolbtn func="cagefs.toggle" type="list" img="t-rights" name="Toggle"/>
+            <toolsep />
+            <toolbtn func="cagefs.enable-all" type="list" img="t-liststart" name="EnableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.disable-all" type="list" img="t-liststop" name="DisableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.status" type="list" img="t-CagefsStatus" name="Status"/>
+            <toolsep />
+            <toolbtn func="cagefs.update_start" type="list" img="t-retry" name="Update"/>
+        </toolbar>
+        <coldata>
+            <col name="message" type="data" noescaping="true" />
+        </coldata>
+    </metadata>
+    
+    <metadata name="cagefs.toggle" type="list" key="message">
+        <toolbar>
+            <toolbtn func="cagefs.init_start" type="list" img="t-start" name="Init"/>
+            <toolsep />
+            <toolbtn func="cagefs.toggle" type="list" img="t-rights" name="Toggle"/>
+            <toolsep />
+            <toolbtn func="cagefs.enable-all" type="list" img="t-liststart" name="EnableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.disable-all" type="list" img="t-liststop" name="DisableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.status" type="list" img="t-CagefsStatus" name="Status"/>
+            <toolsep />
+            <toolbtn func="cagefs.update_start" type="list" img="t-retry" name="Update"/>
+        </toolbar>
+        <coldata>
+            <col name="message" type="data" noescaping="true" />
+        </coldata>
+    </metadata>
+    
+    <metadata name="cagefs.status" type="list" key="message">
+        <toolbar>
+            <toolbtn func="cagefs.init_start" type="list" img="t-start" name="Init"/>
+            <toolsep />
+            <toolbtn func="cagefs.toggle" type="list" img="t-rights" name="Toggle"/>
+            <toolsep />
+            <toolbtn func="cagefs.enable-all" type="list" img="t-liststart" name="EnableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.disable-all" type="list" img="t-liststop" name="DisableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.status" type="list" img="t-CagefsStatus" name="Status"/>
+            <toolsep />
+            <toolbtn func="cagefs.update_start" type="list" img="t-retry" name="Update"/>
+        </toolbar>
+        <coldata>
+            <col name="message" type="data" noescaping="true" />
+        </coldata>
+    </metadata>
+    
+    <metadata name="cagefs.update_start" type="list" key="message">
+        <toolbar>
+            <toolbtn func="cagefs.init_start" type="list" img="t-start" name="Init"/>
+            <toolsep />
+            <toolbtn func="cagefs.toggle" type="list" img="t-rights" name="Toggle"/>
+            <toolsep />
+            <toolbtn func="cagefs.enable-all" type="list" img="t-liststart" name="EnableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.disable-all" type="list" img="t-liststop" name="DisableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.status" type="list" img="t-CagefsStatus" name="Status"/>
+            <toolsep />
+            <toolbtn func="cagefs.update_start" type="list" img="t-retry" name="Update"/>
+        </toolbar>
+        <coldata>
+            <col name="message" type="data" noescaping="true" />
+        </coldata>
+    </metadata>
+    
+    <metadata name="cagefs.update_progress" type="list" key="message" autoupdate="5">
+        <toolbar />
+        <coldata>
+            <col name="message" type="data" noescaping="true" />
+        </coldata>
+    </metadata>
+    
+    <metadata name="cagefs.update_done" type="list" key="message">
+       <toolbar>
+            <toolbtn func="cagefs.init_start" type="list" img="t-start" name="Init"/>
+            <toolsep />
+            <toolbtn func="cagefs.toggle" type="list" img="t-rights" name="Toggle"/>
+            <toolsep />
+            <toolbtn func="cagefs.enable-all" type="list" img="t-liststart" name="EnableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.disable-all" type="list" img="t-liststop" name="DisableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.status" type="list" img="t-CagefsStatus" name="Status"/>
+            <toolsep />
+            <toolbtn func="cagefs.update_start" type="list" img="t-retry" name="Update"/>
+        </toolbar>
+        <coldata>
+            <col name="message" type="data" noescaping="true" />
+        </coldata>
+    </metadata>
+    
+    
+    <metadata name="cagefs.init_start" type="list" key="message">
+        <toolbar>
+            <toolbtn func="cagefs.init_start" type="list" img="t-start" name="Init"/>
+            <toolsep />
+            <toolbtn func="cagefs.toggle" type="list" img="t-rights" name="Toggle"/>
+            <toolsep />
+            <toolbtn func="cagefs.enable-all" type="list" img="t-liststart" name="EnableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.disable-all" type="list" img="t-liststop" name="DisableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.status" type="list" img="t-CagefsStatus" name="Status"/>
+            <toolsep />
+            <toolbtn func="cagefs.update_start" type="list" img="t-retry" name="Update"/>
+        </toolbar>
+        <coldata>
+            <col name="message" type="data" noescaping="true" />
+        </coldata>
+    </metadata>
+    
+    <metadata name="cagefs.init_progress" type="list" key="message" autoupdate="5">
+        <toolbar />
+        <coldata>
+            <col name="message" type="data" noescaping="true" />
+        </coldata>
+    </metadata>
+    
+    <metadata name="cagefs.init_done" type="list" key="message">
+        <toolbar>
+            <toolbtn func="cagefs.init_start" type="list" img="t-start" name="Init"/>
+            <toolsep />
+            <toolbtn func="cagefs.toggle" type="list" img="t-rights" name="Toggle"/>
+            <toolsep />
+            <toolbtn func="cagefs.enable-all" type="list" img="t-liststart" name="EnableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.disable-all" type="list" img="t-liststop" name="DisableAll"/>
+            <toolsep />
+            <toolbtn func="cagefs.status" type="list" img="t-CagefsStatus" name="Status"/>
+            <toolsep />
+            <toolbtn func="cagefs.update_start" type="list" img="t-retry" name="Update"/>
+        </toolbar>
+        <coldata>
+            <col name="message" type="data" noescaping="true" />
+        </coldata>
+    </metadata>
+    
+ 
+    <lang name="ru">
+        <messages name="desktop">
+            <msg name="menu_cagefs">CageFS</msg>
+            <msg name="menu_cagefs.main">CageFS</msg>
+        </messages>
+        
+        <messages name="cagefs.main">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.toggle">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.status">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.update_start">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.update_progress">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+        </messages>
+        
+        <messages name="cagefs.update_done">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.init_start">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.init_progress">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+        </messages>
+        
+        <messages name="cagefs.init_done">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+    </lang>
+    
+    <lang name="en">
+        <messages name="desktop">
+            <msg name="menu_cagefs">CageFS</msg>
+            <msg name="menu_cagefs.main">CageFS</msg>
+        </messages>
+        
+        <messages name="cagefs.main">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.toggle">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.status">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.update_start">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.update_progress">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+        </messages>
+        
+        <messages name="cagefs.update_done">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.init_start">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+        
+        <messages name="cagefs.init_progress">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+        </messages>
+        
+        <messages name="cagefs.init_done">
+            <msg name="title">CageFS Manager</msg>
+            <msg name="message">CageFS Information</msg>
+            <msg name="short_Init">Init</msg>
+            <msg name="short_Toggle">Toggle Mode</msg>
+            <msg name="short_Status">Enable|Disable</msg>
+            <msg name="short_Update">Update</msg>
+            <msg name="short_EnableAll">Enable All</msg>
+            <msg name="short_DisableAll">Disable All</msg>
+        </messages>
+    </lang>
+ </mgrdata>
