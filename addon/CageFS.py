@@ -6,11 +6,11 @@ PLUGIN_NAME = 'CageFS'
 
 import sys
 sys.path.insert(0, '/usr/local/ispmgr/addon')
-from cli import ExitOk,Log,xml_doc,xml_error
+from cli import ExitOk, Log, xml_doc, xml_error
 from libcagefs import CageFS
 
 from os import chdir
-from sys import exit,stderr
+from sys import exit, stderr
 from cgi import FieldStorage
 from traceback import format_exc
 
@@ -31,10 +31,11 @@ if __name__ == "__main__":
 
         log.write('func %s, elid %s, sok %s' % (func, elid, sok))
 
-        if func not in ['cagefs.main', 'cagefs.toggle', 'cagefs.status', 
-            'cagefs.update_start', 'cagefs.update_progress', 'cagefs.update_done',
-            'cagefs.init_start', 'cagefs.init_progress', 'cagefs.init_done', 
-            'cagefs.enable-all', 'cagefs.disable-all']:
+        if func not in ['cagefs.main', 'cagefs.toggle', 'cagefs.status',
+                        'cagefs.update_start', 'cagefs.update_progress',
+                        'cagefs.update_done', 'cagefs.init_start',
+                        'cagefs.init_progress', 'cagefs.init_done',
+                        'cagefs.enable-all', 'cagefs.disable-all']:
             print xml_doc()
             raise ExitOk('no action')
 

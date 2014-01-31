@@ -3,7 +3,8 @@
 # Author: Andrey Skopenko <andrey@scopenco.net>
 
 '''
-This module is a set of functions and classes for CageFS administration in ISPmanager.
+This module is a set of functions and classes
+for CageFS administration in ISPmanager.
 '''
 
 # configs
@@ -14,6 +15,7 @@ from xml.dom import minidom
 from psutil import process_iter, NoSuchProcess, Process
 from os.path import isdir, isfile
 import subprocess as sp
+
 
 class CageFS(object):
     '''this class desc all need funcs for cagefs view'''
@@ -35,14 +37,14 @@ class CageFS(object):
             for proc in procs:
                 if proc.name == 'cagefsctl':
                     p = Process(proc.pid)
-                    if ['--init','--reinit'] in p.cmdline:
+                    if ['--init', '--reinit'] in p.cmdline:
                         return 'init'
                     if '--update' in p.cmdline:
                         return 'update'
         except NoSuchProcess, e:
             pass
 
-    def __cagefs_user_mode(self, change = False):
+    def __cagefs_user_mode(self, change=False):
         '''get current cagefs user mode'''
 
         cagefs_state = self.run_cagefsctl('--display-user-mode')
@@ -110,9 +112,10 @@ class CageFS(object):
         if isdir(CAGEFS_SKELETON):
             self.xml_elem = self.xml_root.createElement('elem')
             self.xml_doc.appendChild(self.xml_elem)
-            msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px;">'
-            msg_t += 'CageFS is already Initialized.'
-            msg_t += '</div>]]></message>'
+            msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                    'margin-top:20px;">' \
+                    'CageFS is already Initialized.' \
+                    '</div>]]></message>'
             msg = minidom.parseString(msg_t).firstChild
             return self.xml_elem.appendChild(msg)
 
@@ -122,7 +125,8 @@ class CageFS(object):
             self.run_cagefsctl('--init --do-not-ask --silent &>/dev/null &')
             self.xml_redirect = self.xml_root.createElement('redirect')
             self.xml_doc.appendChild(self.xml_redirect)
-            msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.init_progress"')
+            msg = self.xml_root.createTextNode(
+                'location="ispmgr?func=cagefs.init_progress"')
             return self.xml_redirect.appendChild(msg)
 
     def cagefs_update_start(self):
@@ -132,9 +136,11 @@ class CageFS(object):
         if not isdir(CAGEFS_SKELETON):
             self.xml_elem = self.xml_root.createElement('elem')
             self.xml_doc.appendChild(self.xml_elem)
-            msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px;">'
-            msg_t += 'CageFS is not Initialized. Init CageFS to update CageFS Skeleton.'
-            msg_t += '</div>]]></message>'
+            msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                'margin-top:20px;">' \
+                'CageFS is not Initialized. ' \
+                'Init CageFS to update CageFS Skeleton.' \
+                '</div>]]></message>'
             msg = minidom.parseString(msg_t).firstChild
             return self.xml_elem.appendChild(msg)
 
@@ -144,9 +150,11 @@ class CageFS(object):
         self.xml_doc.appendChild(self.xml_redirect)
         if not cagefsctl_state:
             self.run_cagefsctl('--update --do-not-ask --silent &>/dev/null &')
-            msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.init_progress"')
+            msg = self.xml_root.createTextNode(
+                'location="ispmgr?func=cagefs.init_progress"')
         else:
-            msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.update_progress"')
+            msg = self.xml_root.createTextNode(
+                'location="ispmgr?func=cagefs.update_progress"')
         return self.xml_redirect.appendChild(msg)
 
     def cagefs_init_progress(self):
@@ -156,14 +164,17 @@ class CageFS(object):
         if not cagefsctl_state:
             self.xml_redirect = self.xml_root.createElement('redirect')
             self.xml_doc.appendChild(self.xml_redirect)
-            msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.init_done"')
+            msg = self.xml_root.createTextNode(
+                'location="ispmgr?func=cagefs.init_done"')
             return self.xml_redirect.appendChild(msg)
 
         self.xml_elem = self.xml_root.createElement('elem')
         self.xml_doc.appendChild(self.xml_elem)
-        msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px;">Init Skeleton<br /><br />'
-        msg_t += '<div id="UpdateProgress" style="width:80%; border: 1px solid #000000; height:400px; overflow-y: auto; font-size:14px;">'
-        msg_t += '...<br />'
+        msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                'margin-top:20px;">Init Skeleton<br /><br />' \
+                '<div id="UpdateProgress" style="width:80%; border: ' \
+                '1px solid #000000; height:400px; overflow-y: auto;' \
+                'font-size:14px;">...<br />'
 
         if isfile(CAGEFS_UPLOG):
            # tail last 100 lines
@@ -189,9 +200,10 @@ class CageFS(object):
         if not isdir(CAGEFS_SKELETON):
             self.xml_elem = self.xml_root.createElement('elem')
             self.xml_doc.appendChild(self.xml_elem)
-            msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px;">'
-            msg_t += 'CageFS is not Initialized. Init CageFS to update CageFS Skeleton.'
-            msg_t += '</div>]]></message>'
+            msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                    'margin-top:20px;">CageFS is not Initialized. ' \
+                    'Init CageFS to update CageFS Skeleton.' \
+                    '</div>]]></message>'
             msg = minidom.parseString(msg_t).firstChild
             return self.xml_elem.appendChild(msg)
 
@@ -199,15 +211,17 @@ class CageFS(object):
         if not cagefsctl_state:
             self.xml_redirect = self.xml_root.createElement('redirect')
             self.xml_doc.appendChild(self.xml_redirect)
-            msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.update_done"')
+            msg = self.xml_root.createTextNode(
+                'location="ispmgr?func=cagefs.update_done"')
             return self.xml_redirect.appendChild(msg)
 
         self.xml_elem = self.xml_root.createElement('elem')
         self.xml_doc.appendChild(self.xml_elem)
-        msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px;">Updating Skeleton<br /><br />'
-        msg_t += '<div id="UpdateProgress" style="width:80%; border: 1px solid #000000; height:400px; overflow-y: auto; font-size:14px;">'
-        msg_t += '...<br />'
-
+        msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                'margin-top:20px;">Updating Skeleton<br /><br />' \
+                '<div id="UpdateProgress" style="width:80%; border:' \
+                '1px solid #000000; height:400px; overflow-y: auto;' \
+                'font-size:14px;">...<br />'
         if isfile(CAGEFS_UPLOG):
            # tail last 100 lines
             run_cmd = '/usr/bin/tail -100 %r' % CAGEFS_UPLOG
@@ -224,7 +238,6 @@ class CageFS(object):
         msg_t += '</div></div>]]></message>'
         msg = minidom.parseString(msg_t).firstChild
         return self.xml_elem.appendChild(msg)
-
 
     def cagefs_init_done(self):
         '''show cagefs last log'''
@@ -233,15 +246,18 @@ class CageFS(object):
         if cagefsctl_state == 'init':
             self.xml_redirect = self.xml_root.createElement('redirect')
             self.xml_doc.appendChild(self.xml_redirect)
-            msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.init_progress"')
+            msg = self.xml_root.createTextNode(
+                'location="ispmgr?func=cagefs.init_progress"')
             return self.xml_redirect.appendChild(msg)
 
         self.xml_elem = self.xml_root.createElement('elem')
         self.xml_doc.appendChild(self.xml_elem)
-        msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px; font-size:16px;">CageFS was Initialized.<br /><br />'
-        msg_t += '<div id="UpdateProgress" style="width:80%; border: 1px solid #000000; height:400px; overflow-y: auto; font-size:14px;">'
-        msg_t += '...<br />'
-
+        msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                'margin-top:20px; font-size:16px;">' \
+                'CageFS was Initialized.<br /><br />' \
+                '<div id="UpdateProgress" style="width:80%; ' \
+                'border: 1px solid #000000; height:400px; ' \
+                'overflow-y: auto; font-size:14px;">...<br />'
         if isfile(CAGEFS_UPLOG):
            # tail last 100 lines
             run_cmd = '/usr/bin/tail -100 %r' % CAGEFS_UPLOG
@@ -258,7 +274,6 @@ class CageFS(object):
         msg_t += '</div></div>]]></message>'
         msg = minidom.parseString(msg_t).firstChild
         return self.xml_elem.appendChild(msg)
-
 
     def cagefs_update_done(self):
         '''show cagefs update last log'''
@@ -267,9 +282,11 @@ class CageFS(object):
         if not isdir(CAGEFS_SKELETON):
             self.xml_elem = self.xml_root.createElement('elem')
             self.xml_doc.appendChild(self.xml_elem)
-            msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px;">'
-            msg_t += 'CageFS is not Initialized. Init CageFS to update CageFS Skeleton.'
-            msg_t += '</div>]]></message>'
+            msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                    'margin-top:20px;">' \
+                    'CageFS is not Initialized.' \
+                    'Init CageFS to update CageFS Skeleton.' \
+                    '</div>]]></message>'
             msg = minidom.parseString(msg_t).firstChild
             return self.xml_elem.appendChild(msg)
 
@@ -277,15 +294,18 @@ class CageFS(object):
         if cagefsctl_state == 'update':
             self.xml_redirect = self.xml_root.createElement('redirect')
             self.xml_doc.appendChild(self.xml_redirect)
-            msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.update_progress"')
+            msg = self.xml_root.createTextNode(
+                'location="ispmgr?func=cagefs.update_progress"')
             return self.xml_redirect.appendChild(msg)
 
         self.xml_elem = self.xml_root.createElement('elem')
         self.xml_doc.appendChild(self.xml_elem)
-        msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px; font-size:16px;">Update Complete<br /><br />'
-        msg_t += '<div id="UpdateProgress" style="width:80%; border: 1px solid #000000; height:400px; overflow-y: auto; font-size:14px;">'
-        msg_t += '...<br />'
-
+        msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                'margin-top:20px; font-size:16px;">' \
+                'Update Complete<br /><br />' \
+                '<div id="UpdateProgress" style="width:80%; border:' \
+                '1px solid #000000; height:400px; overflow-y: auto;' \
+                'font-size:14px;">...<br />'
         if isfile(CAGEFS_UPLOG):
            # tail last 100 lines
             run_cmd = '/usr/bin/tail -100 %r' % CAGEFS_UPLOG
@@ -303,7 +323,6 @@ class CageFS(object):
         msg = minidom.parseString(msg_t).firstChild
         return self.xml_elem.appendChild(msg)
 
-
     def cagefs_status(self):
         '''change cagefs status to enable/disable'''
 
@@ -311,9 +330,11 @@ class CageFS(object):
         if not isdir(CAGEFS_SKELETON):
             self.xml_elem = self.xml_root.createElement('elem')
             self.xml_doc.appendChild(self.xml_elem)
-            msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px;">'
-            msg_t += 'CageFS is not Initialized. Init CageFS to update CageFS Skeleton.'
-            msg_t += '</div>]]></message>'
+            msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                    'margin-top:20px;">' \
+                    'CageFS is not Initialized. ' \
+                    'Init CageFS to update CageFS Skeleton.' \
+                    '</div>]]></message>'
             msg = minidom.parseString(msg_t).firstChild
             return self.xml_elem.appendChild(msg)
 
@@ -323,17 +344,19 @@ class CageFS(object):
             self.xml_redirect = self.xml_root.createElement('redirect')
             self.xml_doc.appendChild(self.xml_redirect)
             if cagefsctl_state == 'init':
-                msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.init_progress"')
+                msg = self.xml_root.createTextNode(
+                    'location="ispmgr?func=cagefs.init_progress"')
             if cagefsctl_state == 'update':
-                msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.update_progress"')
+                msg = self.xml_root.createTextNode(
+                    'location="ispmgr?func=cagefs.update_progress"')
             return self.xml_redirect.appendChild(msg)
 
         self.__cagefs_user_mode(True)
         self.xml_redirect = self.xml_root.createElement('redirect')
         self.xml_doc.appendChild(self.xml_redirect)
-        msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.main"')
+        msg = self.xml_root.createTextNode(
+            'location="ispmgr?func=cagefs.main"')
         return self.xml_redirect.appendChild(msg)
-
 
     def cagefs_toggle(self):
         '''run cagefs to toggle mode'''
@@ -344,44 +367,52 @@ class CageFS(object):
             self.xml_redirect = self.xml_root.createElement('redirect')
             self.xml_doc.appendChild(self.xml_redirect)
             if cagefsctl_state == 'init':
-                msg = self.xml_root.createTextNode('ispmgr?func=cagefs.init_progress')
+                msg = self.xml_root.createTextNode(
+                    'ispmgr?func=cagefs.init_progress')
             if cagefsctl_state == 'update':
-                msg = self.xml_root.createTextNode('ispmgr?func=cagefs.update_progress')
+                msg = self.xml_root.createTextNode(
+                    'ispmgr?func=cagefs.update_progress')
             return self.xml_redirect.appendChild(msg)
 
         if isdir(CAGEFS_SKELETON):
             self.run_cagefsctl('--toggle-mode')
             self.xml_redirect = self.xml_root.createElement('redirect')
             self.xml_doc.appendChild(self.xml_redirect)
-            msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.main"')
+            msg = self.xml_root.createTextNode(
+                'location="ispmgr?func=cagefs.main"')
             return self.xml_redirect.appendChild(msg)
         else:
             self.xml_elem = self.xml_root.createElement('elem')
             self.xml_doc.appendChild(self.xml_elem)
-            msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px;">'
-            msg_t += 'CageFS is not Initialized. Init CageFS to toggle mode.'
-            msg_t += '</div>]]></message>'
+            msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                    'margin-top:20px;">' \
+                    'CageFS is not Initialized. ' \
+                    'Init CageFS to toggle mode.' \
+                    '</div>]]></message>'
             msg = minidom.parseString(msg_t).firstChild
             return self.xml_elem.appendChild(msg)
 
     def cagefs_main(self):
         '''show main cagefs page'''
-        
+
         # create output for running cagefsctl
         cagefsctl_state = self.__check_cagefsctl_run()
         if cagefsctl_state in ['init', 'update']:
             self.xml_redirect = self.xml_root.createElement('redirect')
             self.xml_doc.appendChild(self.xml_redirect)
             if cagefsctl_state == 'init':
-                msg = self.xml_root.createTextNode('ispmgr?func=cagefs.init_progress')
+                msg = self.xml_root.createTextNode(
+                    'ispmgr?func=cagefs.init_progress')
             if cagefsctl_state == 'update':
-                msg = self.xml_root.createTextNode('ispmgr?func=cagefs.update_progress')
+                msg = self.xml_root.createTextNode(
+                    'ispmgr?func=cagefs.update_progress')
             return self.xml_redirect.appendChild(msg)
 
         # create output for current users list
         self.xml_elem = self.xml_root.createElement('elem')
         self.xml_doc.appendChild(self.xml_elem)
-        msg_t = '<message><![CDATA[<table style="margin-left:20px; margin-top:20px; width:98%;"><tr><td style="border:0px;">'
+        msg_t = '<message><![CDATA[<table style="margin-left:20px;' \
+                'margin-top:20px; width:98%;"><tr><td style="border:0px;">'
         if isdir(CAGEFS_SKELETON):
             msg_t += self.__cagefs_user_mode()
             msg_t += '</br></br>'
@@ -408,9 +439,11 @@ class CageFS(object):
         if not isdir(CAGEFS_SKELETON):
             self.xml_euem = self.xml_root.createElement('elem')
             self.xml_doc.appendChild(self.xml_elem)
-            msg_t = '<message><![CDATA[<div style="margin-left:20px; margin-top:20px;">'
-            msg_t += 'CageFS is not Initialized. Init CageFS to update CageFS Skeleton.'
-            msg_t += '</div>]]></message>'
+            msg_t = '<message><![CDATA[<div style="margin-left:20px;' \
+                    'margin-top:20px;">' \
+                    'CageFS is not Initialized. ' \
+                    'Init CageFS to update CageFS Skeleton.' \
+                    '</div>]]></message>'
             msg = minidom.parseString(msg_t).firstChild
             return self.xml_elem.appendChild(msg)
 
@@ -420,15 +453,18 @@ class CageFS(object):
             self.xml_redirect = self.xml_root.createElement('redirect')
             self.xml_doc.appendChild(self.xml_redirect)
             if cagefsctl_state == 'init':
-                msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.init_progress"')
+                msg = self.xml_root.createTextNode(
+                    'location="ispmgr?func=cagefs.init_progress"')
             if cagefsctl_state == 'update':
-                msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.update_progress"')
+                msg = self.xml_root.createTextNode(
+                    'location="ispmgr?func=cagefs.update_progress"')
             return self.xml_redirect.appendChild(msg)
 
         self.run_cagefsctl(cmd)
         self.xml_redirect = self.xml_root.createElement('redirect')
         self.xml_doc.appendChild(self.xml_redirect)
-        msg = self.xml_root.createTextNode('location="ispmgr?func=cagefs.main"')
+        msg = self.xml_root.createTextNode(
+            'location="ispmgr?func=cagefs.main"')
         return self.xml_redirect.appendChild(msg)
 
     def get_output(self):
@@ -436,4 +472,4 @@ class CageFS(object):
         return self.xml_root.toxml('UTF-8')
 
 if __name__ == "__main__":
-     print __doc__
+    print __doc__

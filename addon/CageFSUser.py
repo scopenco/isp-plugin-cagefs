@@ -6,21 +6,21 @@ PLUGIN_NAME = 'CageFSUser'
 
 import sys
 sys.path.insert(0, '/usr/local/ispmgr/addon')
-from cli import ExitOk,Log,xml_doc,xml_error
+from cli import ExitOk, Log, xml_doc, xml_error
 from libcagefs import CageFS
 
 from os import chdir
-from sys import exit,stderr,stdin
+from sys import exit, stderr, stdin
 from cgi import FieldStorage
 from traceback import format_exc
 
 try:
-  import xml.etree.cElementTree as etree
+    import xml.etree.cElementTree as etree
 except ImportError:
-  try:
-    import xml.etree.ElementTree as etree
-  except ImportError:
-    print('Failed to import ElementTree from any known place')
+    try:
+        import xml.etree.ElementTree as etree
+    except ImportError:
+        print('Failed to import ElementTree from any known place')
 
 if __name__ == "__main__":
     chdir('/usr/local/ispmgr/')
@@ -38,12 +38,13 @@ if __name__ == "__main__":
         user = xmldoc.get('user')
         params = xmldoc.find('params')
         func = params.find('func').text
-        if params.find('sok') != None:
+        if params.find('sok') is not None:
             sok = params.find('sok').text
         else:
             sok = None
 
-        log.write('user %s, level %s, func %s, sok %s' % (user, level, func, sok))
+        log.write('user %s, level %s, func %s, sok %s' % (
+                  user, level, func, sok))
 
         if func != 'user':
             print xml_doc()

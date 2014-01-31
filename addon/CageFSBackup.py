@@ -6,11 +6,11 @@ PLUGIN_NAME = 'CageFSBackup'
 
 import sys
 sys.path.insert(0, '/usr/local/ispmgr/addon')
-from cli import ExitOk,Log,xml_doc,xml_error
+from cli import ExitOk, Log, xml_doc, xml_error
 from libcagefs import CageFS
 
 from os import chdir
-from sys import exit,stderr
+from sys import exit, stderr
 from cgi import FieldStorage
 from traceback import format_exc
 

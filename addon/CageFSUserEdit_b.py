@@ -6,7 +6,7 @@ PLUGIN_NAME = 'CageFSUserEdit_b'
 
 import sys
 sys.path.insert(0, '/usr/local/ispmgr/addon')
-from cli import ExitOk,Log,xml_doc,xml_error
+from cli import ExitOk, Log, xml_doc, xml_error
 from libcagefs import CageFS
 
 from os import chdir
